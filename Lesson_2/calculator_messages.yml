@@ -1,0 +1,5 @@
+
+welcome: "Welcome to Calculator! This came froma  different file! Enter your name:"
+valid_name: "Make sure to enter a valid name."
+
+# ... rest of file omitted for brevity

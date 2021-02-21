@@ -1,0 +1,22 @@
+1. a method that returns the sum of two integers
+Given two input numbers return the sum
+
+START
+Number1 + Number 2
+END
+
+2.a method that takes an array of strings, 
+and returns a string that is all those strings concatenated together
+
+Given an array of strings create a new string that combines all elements of the array. Do this with a method or iteration
+If necessary add a space between each.
+
+START 
+Set new_string = ''
+Iterate over the input array and add each element to new_string
+return new_string
+
+END
+
+3. a method that takes an array of integers, and returns a new array with every other element
+Given an input array iterate using a while loop that increments by 2 each time and adds the element of the array at index to a new array.
