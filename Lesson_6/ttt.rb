@@ -74,49 +74,64 @@ def random_move(moves_arr)
   end
 end
 
-def best_move(moves_arr)
-  # If two out of three of a win condition are yours and the third is empty pick the third
+def win_now(arr)
   WIN_CONDITIONS.each do |win|
     temp_arr = []
     empty = nil
 
     win.each do |index|
-      empty = index if moves_arr[index] == INIT_SPACE
-      temp_arr << moves_arr[index]
+      empty = index if arr[index] == INIT_SPACE
+      temp_arr << arr[index]
     end
-
     return empty if temp_arr.count(COMPUTER_MARKER) == 2 && !empty.nil?
   end
+  nil
+end
 
-  # Else if two out of three of a win condition are the same pick the third
+def defense(arr)
   WIN_CONDITIONS.each do |win|
     temp_arr = []
     empty = nil
 
     win.each do |index|
-      empty = index if moves_arr[index] == INIT_SPACE
-      temp_arr << moves_arr[index]
+      empty = index if arr[index] == INIT_SPACE
+      temp_arr << arr[index]
     end
 
     return empty if temp_arr.count(PLAYER_MARKER) == 2 && !empty.nil?
   end
+  nil
+end
+
+def empty_corner(arr)
+  loop do
+    corner = [0, 2, 6, 8].sample
+    return corner if arr[corner] == INIT_SPACE
+  end
+end
+
+def empty_orthagonal(arr)
+  loop do
+    corner = [1, 3, 7, 5].sample
+    return corner if arr[corner] == INIT_SPACE
+  end
+end
+
+def best_move(moves_arr)
+  # If two out of three of a win condition are yours and the third is empty pick the third
+  return win_now(moves_arr) unless win_now(moves_arr).nil?
+
+  # Else if two out of three of a win condition are the same pick the third
+  return defense(moves_arr) unless defense(moves_arr).nil?
 
   # Else if the middle is empty take the middle
   return 4 if moves_arr[4] == INIT_SPACE
 
   # Else if the middle is "O" take any open corner
-  if moves_arr[4] == PLAYER_MARKER
-    [0, 2, 6, 8].each do |space|
-      return space if moves_arr[space] == INIT_SPACE
-    end
-  end
+  return empty_corner(moves_arr) if moves_arr[4] == PLAYER_MARKER
 
   # Else if the middle is "X" take any orthagonal space to the middle
-  if moves_arr[4] == COMPUTER_MARKER
-    [1, 3, 7, 5].each do |space|
-      return space if moves_arr[space] == INIT_SPACE
-    end
-  end
+  return empty_orthagonal(moves_arr) if moves_arr[4] == COMPUTER_MARKER
 end
 
 def check_endgame(moves_arr)
